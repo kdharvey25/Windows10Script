@@ -3,4 +3,4 @@ firewall : True
 manageusers : True
 checkfiles : True
 registry : True
-netSh
+netShares

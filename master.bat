@@ -15,7 +15,7 @@ echo Setting script configurations...
 echo Configurations set
 
 start %currentPath%\scripts\firewall.bat
-%currentPath%\scripts\lsp.bat
+start %currentPath%\scripts\lsp.bat
 
 pause
 
