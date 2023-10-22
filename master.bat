@@ -19,6 +19,8 @@ call %currentPath%\scripts\lsp.bat
 pause
 call %currentPath%\scripts\audit.bat
 call %currentPath%\scripts\usrRights.bat
+call %currentPath%\scripts\services.bat
+
 
 
 
