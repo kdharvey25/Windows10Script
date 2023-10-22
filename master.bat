@@ -21,7 +21,7 @@ call %currentPath%\scripts\audit.bat
 call %currentPath%\scripts\services.bat
 call %currentPath%\scripts\reg.bat
 call %currentPath%\scripts\powerSettings.bat
-call %currentPath%scripts\shares.bat
+call %currentPath%\scripts\shares.bat
 call %currentPath%\scripts\usrRights.bat
 
 
