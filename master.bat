@@ -16,7 +16,9 @@ echo Configurations set
 
 call %currentPath%\scripts\firewall.bat
 call %currentPath%\scripts\lsp.bat
+pause
 call %currentPath%\scripts\audit.bat
+call %currentPath%\scripts\usrRights.bat
 
 
 

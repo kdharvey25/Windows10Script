@@ -1,5 +1,5 @@
 echo Installing ntrights.exe to C:\Windows\System32
-copy %currentPath%resources\ntrights.exe C:\Windows\System32
+copy %currentPath%\Resources\ntrights.exe C:\Windows\System32
 if exist C:\Windows\System32\ntrights.exe (
 	echo Installation succeeded, managing user rights..
 	set remove=("Backup Operators" "Everyone" "Power Users" "Users" "NETWORK SERVICE" "LOCAL SERVICE" "Remote Desktop User" "ANONOYMOUS LOGON" "Guest" "Performance Log Users")
