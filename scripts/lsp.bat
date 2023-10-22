@@ -5,5 +5,3 @@ echo Set password policy: Password policy must meet complexity to enable
 echo Set password policy: Store passwords using reversible encryption to disabled
 echo Secpol.msc will be started for manual process
 start secpol.msc /wait
-
-pause
