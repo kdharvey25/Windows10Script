@@ -12,4 +12,3 @@ netsh advfirewall firewall set rule name="Telnet Server" new enable=no
 netsh advfirewall firewall set rule name="netcat" new enable=no
 echo Set basic firewall rules 
 
-exit
