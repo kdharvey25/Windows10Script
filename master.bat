@@ -23,6 +23,8 @@ call %currentPath%\scripts\services.bat
 call %currentPath%\scripts\reg.bat
 call %currentPath%\scripts\powerSettings.bat
 call %currentPath%\scripts\shares.bat
+call %currentPath%\scripts\flushDNS.bat
+call %currentPath%\scripts\defAccounts.bat
 call %currentPath%\scripts\usrRights.bat
 
 
