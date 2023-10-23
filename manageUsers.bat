@@ -1,16 +1,9 @@
 REM Disabling everyone - we will reenable them as they are checked
-for /f "skip=1" %%z in ('wmic UserAccount get Name') do (
-	net user %%z 1qaz2wsx3edc4rfvA!
-	net user %%z /active:no
-	net user %%z /PasswordChg:no
-	net user %%z /logonpasswordchg:no
-	net user %%z /passwordreq:yes
-	WMIC USERACCOUNT WHERE Name='%%f' SET PasswordExpires=FALSE
-)
+
 
 REM Adds back the admins
-for %%e in %admin% do (
-	net user %%e 1NoPointDed! /add
+FOR /F "tokens=* delims=" %%e IN (%currentPath%\admins.txt) DO (
+	net user %%e cybersecurity /add
     net localgroup Administrators %%e /add
 	WMIC USERACCOUNT WHERE Name='%%e' SET PasswordExpires=TRUE
 	net user %%e /active:yes
