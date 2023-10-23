@@ -3,6 +3,7 @@
 
 set currentPath=%cd%
 echo Current path: %currentPath%
+echo %cd%> %currentPath%\resources\path.txt 
 
 :main 
 set /p mode="Auto or Manual? (a/m)"
