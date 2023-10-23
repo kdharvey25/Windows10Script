@@ -30,6 +30,7 @@ call %currentPath%\scripts\usrRights.bat
 pause
 
 :manual
+call %currentPath%\manageUsers.bat
 
 pause
 
