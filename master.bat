@@ -32,6 +32,89 @@ if %userRights% (call %currentPath%\scripts\usrRights.bat)
 pause
 
 :manual
+echo Choose an option:
+echo 1. Set audit policy
+echo 2. Check for media files
+echo 3. defAccounts
+echo 4. Set firewall settings
+echo 5. FlushDNS
+echo 6. Set Local Security Policy
+echo 7. Manage Users
+echo 8. Set power settings
+echo 9. Set Registry Keys
+echo 10. Output shares
+echo 11. Manage services
+echo 12. Set User Rights Assignments
+echo 13. Set Windows Features
+
+set /p "choice=Enter your choice: "
+
+if "%choice%"=="1" goto One
+if "%choice%"=="2" goto Two
+if "%choice%"=="3" goto Three
+if "%choice%"=="4" goto Four
+if "%choice%"=="5" goto Five
+if "%choice%"=="6" goto Six
+if "%choice%"=="7" goto Seven
+if "%choice%"=="8" goto Eight
+if "%choice%"=="9" goto Nine
+if "%choice%"=="10" goto Ten
+if "%choice%"=="11" goto Eleven
+if "%choice%"=="12" goto Twelve
+if "%choice%"=="13" goto Thirteen
+
+:One
+call %currentPath%\scripts\audit.bat
+goto manual
+
+:Two
+call %currentPath%\scripts\checkfiles.bat
+goto manual
+
+:Three
+call %currentPath%\scripts\defAccounts.bat
+goto manual
+
+:Four
+call %currentPath%\scripts\firewall.bat
+goto manual
+
+:Five
+call %currentPath%\scripts\flushDNS.bat
+goto manual
+
+:Six
+call %currentPath%\scripts\lsp.bat
+goto manual
+
+:Seven
+call %currentPath%\scripts\manageUsers.bat
+goto manual
+
+:Eight
+call %currentPath%\scripts\powerSettings.bat
+goto manual
+
+:Nine
+call %currentPath%\scripts\reg.bat
+goto manual
+
+:Ten
+call %currentPath%\scripts\shares.bat
+goto manual
+
+:Eleven
+call %currentPath%\scripts\services.bat
+goto manual
+
+:Twelve
+call %currentPath%\scripts\usrRights.bat
+goto manual
+
+:Thirteen
+call %currentPath%\scripts\winFeatrues.bat
+goto manual
+
 pause
 
 
