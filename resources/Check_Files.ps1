@@ -4,8 +4,8 @@ if(-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity
 	Start-Process powershell -Verb runAs -ArgumentList $arguments
 	Break
 }
-$path2=Split-Path -parent $MyInvocation.MyCommand.Definition
-$path=Get-Content $path2\path.txt
+$path2=Split-Path -Path $PWD -Parent
+$path=Get-item $path/output
 
 Write-host "Searching for unauthorized files..."
 $extensions =@("aac","ac3","avi","aiff","bat","bmp","exe","flac","gif","jpeg","jpg","mov","m3u","m4p",
