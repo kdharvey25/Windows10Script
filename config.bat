@@ -1,0 +1,13 @@
+set auditPol=True
+set checkfiles=True
+set defAccounts=True
+set firewall=True
+set flushDNS=True
+set localSecurityPolicy=True
+set manageUsers=True
+set powerSettings=True
+set registryKeys=True
+set services=True
+set shares=True
+set userRights=True
+set winFeatrues=True

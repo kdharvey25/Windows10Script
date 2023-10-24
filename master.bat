@@ -1,6 +1,5 @@
 @echo off
 
-
 set currentPath=%cd%
 echo Current path: %currentPath%
 echo %cd%\output> %currentPath%\output\path.txt 
@@ -13,7 +12,7 @@ if %mode%==m goto manual
 
 :auto
 echo Setting script configurations...
-:: Learn how to make config file
+call %currentPath%\config.bat
 echo Configurations set
 
 call %currentPath%\scripts\firewall.bat
@@ -30,9 +29,6 @@ call %currentPath%\scripts\flushDNS.bat
 call %currentPath%\scripts\defAccounts.bat
 call %currentPath%\scripts\winFeatures.bat
 call %currentPath%\scripts\usrRights.bat
-
-
-
 
 pause
 

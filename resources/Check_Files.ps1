@@ -17,16 +17,32 @@ $checkFilesOutputDirectory=Join-Path $path "checkFilesOutput"
 if (-not (Test-Path "$checkFilesOutputDirectory")) {
 	New-Item -ItemType Directory -Path $checkFilesOutputDirectory
 }
-foreach($ext in $extensions){
-	Write-host "Checking for .$ext files"
-	if(Test-path "$path\checkFilesOutput\$ext.txt"){Clear-content "$path\checkFilesOutput\$ext.txt"}
-	C:\Windows\System32\cmd.exe /C dir C:\*.$ext /s /b | Out-File "$path\checkFilesOutput\$ext.txt"
+# Function to search for files by extension
+function SearchFilesByExtension($extension) {
+    $outputFile = Join-Path $outputDirectory "$extension.txt"
+    Get-ChildItem -Path C:\ -Filter "*.$extension" -Recurse | ForEach-Object {
+        $_.FullName
+    } | Out-File $outputFile
 }
-Write-host "Finished searching by extension"
-Write-host "Checking for $tools"
-foreach($tool in $tools){
-	Write-host "Checking for $tool"
-	if(Test-path $path\checkFilesOutput\$tool.txt){Clear-content "$path\checkFilesOutput\$tool.txt"}
-	C:\Windows\System32\cmd.exe /C dir C:\*$tool* /s /b | Out-File "$path\checkFilesOutput\$tool.txt"
+
+# Function to search for tools
+function SearchForTool($toolName) {
+    $outputFile = Join-Path $outputDirectory "$toolName.txt"
+    Get-ChildItem -Path C:\ -Filter "*$toolName*" -Recurse | ForEach-Object {
+        $_.FullName
+    } | Out-File $outputFile
 }
-Write-host "Finished searching for tools"
+
+# Search for files by extension
+foreach ($ext in $extensions) {
+    Write-Host "Checking for .$ext files"
+    SearchFilesByExtension $ext
+}
+
+# Search for tools
+foreach ($tool in $tools) {
+    Write-Host "Checking for $tool"
+    SearchForTool $tool
+}
+
+Write-Host "Search completed."
