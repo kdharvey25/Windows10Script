@@ -1,4 +1,4 @@
-set auditPol=True
+set auditPolicy=True
 set checkfiles=True
 set defAccounts=True
 set firewall=True
