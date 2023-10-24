@@ -15,20 +15,19 @@ echo Setting script configurations...
 call %currentPath%\config.bat
 echo Configurations set
 
-call %currentPath%\scripts\firewall.bat
-call %currentPath%\scripts\checkfiles.bat
-call %currentPath%\scripts\lsp.bat
-pause
-call %currentPath%\scripts\audit.bat
-call %currentPath%\scripts\services.bat
-call %currentPath%\scripts\reg.bat
-call %currentPath%\scripts\powerSettings.bat
-call %currentPath%\scripts\manageUsers.bat
-call %currentPath%\scripts\shares.bat
-call %currentPath%\scripts\flushDNS.bat
-call %currentPath%\scripts\defAccounts.bat
-call %currentPath%\scripts\winFeatures.bat
-call %currentPath%\scripts\usrRights.bat
+if (firewall) call %currentPath%\scripts\firewall.bat
+if (checkfiles) call %currentPath%\scripts\checkfiles.bat
+if (localSecurityPolicy) call %currentPath%\scripts\lsp.bat
+if (auditPol) call %currentPath%\scripts\audit.bat
+if (services) call %currentPath%\scripts\services.bat
+if (registryKeys) call %currentPath%\scripts\reg.bat
+if (powerSettings) call %currentPath%\scripts\powerSettings.bat
+if (manageUsers) call %currentPath%\scripts\manageUsers.bat
+if (shares) call %currentPath%\scripts\shares.bat
+if (flushDNS) call %currentPath%\scripts\flushDNS.bat
+if (defAccounts) call %currentPath%\scripts\defAccounts.bat
+if (winFeatrues) call %currentPath%\scripts\winFeatrues.bat
+if (userRights) call %currentPath%\scripts\usrRights.bat
 
 pause
 
