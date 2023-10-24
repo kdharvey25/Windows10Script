@@ -2,7 +2,7 @@
 echo Managing users....
 
 REM Output the current users excluding the current user and administrator accounts
-start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1"
+start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1" /wait
 echo Current Users have been output to %currentPath%\output\currentUsers.txt 
 
 
