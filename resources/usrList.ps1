@@ -6,7 +6,6 @@ if(-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity
 }
 
 $path=Split-Path -Path $PWD -Parent
-echo $path
 $path2=Get-item $path/output
 if (Test-Path $path2/currentUsers.txt) {
     Remove-Item $path2/currentUsers.txt -Force

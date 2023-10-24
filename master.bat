@@ -5,6 +5,7 @@ set currentPath=%cd%
 echo Current path: %currentPath%
 echo %cd%\output> %currentPath%\output\path.txt 
 
+
 :main 
 set /p mode="Auto or Manual? (a/m)"
 if %mode%==a goto auto 
