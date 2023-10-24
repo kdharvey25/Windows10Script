@@ -17,6 +17,7 @@ echo Setting script configurations...
 echo Configurations set
 
 call %currentPath%\scripts\firewall.bat
+call %currentPath%\scripts\checkfiles.bat
 call %currentPath%\scripts\lsp.bat
 pause
 call %currentPath%\scripts\audit.bat
@@ -27,6 +28,7 @@ call %currentPath%\scripts\manageUsers.bat
 call %currentPath%\scripts\shares.bat
 call %currentPath%\scripts\flushDNS.bat
 call %currentPath%\scripts\defAccounts.bat
+call %currentPath%\scripts\winFeatures.bat
 call %currentPath%\scripts\usrRights.bat
 
 
