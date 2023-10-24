@@ -2,7 +2,7 @@
 echo Managing users....
 
 REM Output the current users excluding the current user and administrator accounts
-start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1"
+start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1" /wait
 echo Current Users have been output to %currentPath%\output\currentUsers.txt 
 
 
@@ -13,7 +13,7 @@ for /F "tokens=* delims=" %%z IN (%currentPath%\output\currentUsers.txt) DO (
 	net user %%z /PasswordChg:no
 	net user %%z /logonpasswordchg:no
 	net user %%z /passwordreq:yes
-	WMIC USERACCOUNT WHERE Name='%%z' SET PasswordExpires=FALSE
+	WMIC USERACCOUNT WHERE Name='%%f' SET PasswordExpires=FALSE
 )
 
 REM Adds back the admins
