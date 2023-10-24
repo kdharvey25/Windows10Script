@@ -17,7 +17,7 @@ for /F "tokens=* delims=" %%e IN (%currentPath%\output\currentUsers.txt) DO (
 )
 
 REM Adds back the admins
-FOR /F "tokens=* delims=" %%e IN (%currentPath%\admins.txt) DO (
+FOR /F "tokens=* delims=" %%e IN (%currentPath%\users\admins.txt) DO (
 	net user %%e cybersecurity /add
     net localgroup Administrators %%e /add
 	WMIC USERACCOUNT WHERE Name='%%e' SET PasswordExpires=TRUE
@@ -26,7 +26,7 @@ FOR /F "tokens=* delims=" %%e IN (%currentPath%\admins.txt) DO (
 )
 
 REM Adds back all normal users
-FOR /F "tokens=* delims=" %%f IN (%currentPath%\users.txt) DO (
+FOR /F "tokens=* delims=" %%f IN (%currentPath%\users\users.txt) DO (
     net user %%f 1NoPointDed! /add
     net localgroup Administrators %%f /del
 	WMIC USERACCOUNT WHERE Name='%%f' SET PasswordExpires=TRUE
