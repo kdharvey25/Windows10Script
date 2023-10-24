@@ -34,3 +34,5 @@ FOR /F "tokens=* delims=" %%f IN (%currentPath%\users.txt) DO (
 	net user %%f /PasswordChg:yes
 	net user %%f /logonpasswordchg:yes
 )
+
+echo Users managed
