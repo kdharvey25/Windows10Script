@@ -8,7 +8,7 @@ $path2=Split-Path -Path $PWD -Parent
 $path=Get-item $path2/output
 
 Write-host "Searching for unauthorized files..."
-$extensions =@("txt", "aac","ac3","avi","aiff","bat","bmp","exe","flac","gif","jpeg","jpg","mov","m3u","m4p",
+$extensions =@("aac","ac3","avi","aiff","bat","bmp","exe","flac","gif","jpeg","jpg","mov","m3u","m4p",
 "mp2","mp3","mp4","mpeg4","midi","msi","ogg","png","txt","sh","wav","wma","vqf")
 $tools =@("Cain","nmap","keylogger","Armitage","Wireshark","Metasploit","netcat")
 Write-host "Checking $extensions"
