@@ -5,13 +5,18 @@ if(-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity
 	Break
 }
 $path2=Split-Path -Path $PWD -Parent
-$path=Get-item $path/output
+$path=Get-item $path2/output
 
 Write-host "Searching for unauthorized files..."
 $extensions =@("aac","ac3","avi","aiff","bat","bmp","exe","flac","gif","jpeg","jpg","mov","m3u","m4p",
 "mp2","mp3","mp4","mpeg4","midi","msi","ogg","png","txt","sh","wav","wma","vqf")
 $tools =@("Cain","nmap","keylogger","Armitage","Wireshark","Metasploit","netcat")
 Write-host "Checking $extensions"
+
+$checkFilesOutputDirectory=Join-Path $path "checkFilesOutput"
+if (-not (Test-Path "$checkFilesOutputDirectory")) {
+	New-Item -ItemType Directory -Path $checkFilesOutputDirectory
+}
 foreach($ext in $extensions){
 	Write-host "Checking for .$ext files"
 	if(Test-path "$path\checkFilesOutput\$ext.txt"){Clear-content "$path\checkFilesOutput\$ext.txt"}
