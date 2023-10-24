@@ -7,44 +7,26 @@ if(-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity
 $path2=Split-Path -Path $PWD -Parent
 $path=Get-item $path2/output
 
-# Create a directory to store the search results if it doesn't exist
-$outputDirectory = Join-Path $path2 "checkFilesOutput"
-if (-not (Test-Path $outputDirectory)) {
-    New-Item -ItemType Directory -Path $outputDirectory
-}
+Write-host "Searching for unauthorized files..."
+$extensions =@("aac","ac3","avi","aiff","bat","bmp","exe","flac","gif","jpeg","jpg","mov","m3u","m4p",
+"mp2","mp3","mp4","mpeg4","midi","msi","ogg","png","txt","sh","wav","wma","vqf")
+$tools =@("Cain","nmap","keylogger","Armitage","Wireshark","Metasploit","netcat")
+Write-host "Checking $extensions"
 
-# Function to search for files by extension
-function SearchFilesByExtension($extension) {
-    $files = Get-ChildItem -Path C:\ -Filter "*.$extension" -Recurse
-    if ($files.Count -gt 0) {
-        $outputFile = Join-Path $outputDirectory "$extension.txt"
-        $files | ForEach-Object {
-            $_.FullName
-        } | Out-File $outputFile
-    }
+$checkFilesOutputDirectory=Join-Path $path "checkFilesOutput"
+if (-not (Test-Path "$checkFilesOutputDirectory")) {
+	New-Item -ItemType Directory -Path $checkFilesOutputDirectory
 }
-
-# Function to search for tools
-function SearchForTool($toolName) {
-    $files = Get-ChildItem -Path C:\ -Filter "*$toolName*" -Recurse
-    if ($files.Count -gt 0) {
-        $outputFile = Join-Path $outputDirectory "$toolName.txt"
-        $files | ForEach-Object {
-            $_.FullName
-        } | Out-File $outputFile
-    }
+foreach($ext in $extensions){
+	Write-host "Checking for .$ext files"
+	if(Test-path "$path\checkFilesOutput\$ext.txt"){Clear-content "$path\checkFilesOutput\$ext.txt"}
+	C:\Windows\System32\cmd.exe /C dir C:\*.$ext /s /b | Out-File "$path\checkFilesOutput\$ext.txt"
 }
-
-# Search for files by extension
-foreach ($ext in $extensions) {
-    Write-Host "Checking for .$ext files"
-    SearchFilesByExtension $ext
+Write-host "Finished searching by extension"
+Write-host "Checking for $tools"
+foreach($tool in $tools){
+	Write-host "Checking for $tool"
+	if(Test-path $path\checkFilesOutput\$tool.txt){Clear-content "$path\checkFilesOutput\$tool.txt"}
+	C:\Windows\System32\cmd.exe /C dir C:\*$tool* /s /b | Out-File "$path\checkFilesOutput\$tool.txt"
 }
-
-# Search for tools
-foreach ($tool in $tools) {
-    Write-Host "Checking for $tool"
-    SearchForTool $tool
-}
-
-Write-Host "Search completed."
+Write-host "Finished searching for tools"
