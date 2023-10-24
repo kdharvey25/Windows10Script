@@ -46,6 +46,7 @@ echo 10. Output shares
 echo 11. Manage services
 echo 12. Set User Rights Assignments
 echo 13. Set Windows Features
+echo 14. exit
 
 set /p "choice=Enter your choice: "
 
@@ -62,6 +63,7 @@ if "%choice%"=="10" goto Ten
 if "%choice%"=="11" goto Eleven
 if "%choice%"=="12" goto Twelve
 if "%choice%"=="13" goto Thirteen
+if "%choice%"=="14" goto Fourteen
 
 :One
 call %currentPath%\scripts\audit.bat
@@ -114,6 +116,9 @@ goto manual
 :Thirteen
 call %currentPath%\scripts\winFeatrues.bat
 goto manual
+
+:Fourteen
+exit
 
 pause
 
