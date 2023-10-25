@@ -22,7 +22,7 @@ if %auditPolicy% (call %currentPath%\scripts\audit.bat)
 if %services% (call %currentPath%\scripts\services.bat)
 if %registryKeys% (call %currentPath%\scripts\reg.bat)
 if %powerSettings% (call %currentPath%\scripts\powerSettings.bat)
-if %manageUsers% (call %currentPath%\scripts\manageUsers.bat)
+if %manageUsers% (Powershell.exe -executionpolicy remotesigned -File  %currentPath%\manageUsers.ps1)
 if %shares% (call %currentPath%\scripts\shares.bat)
 if %flushDNS% (call %currentPath%\scripts\flushDNS.bat)
 if %defAccounts% (call %currentPath%\scripts\defAccounts.bat)
@@ -90,7 +90,7 @@ call %currentPath%\scripts\lsp.bat
 goto manual
 
 :Seven
-call %currentPath%\scripts\manageUsers.bat
+Powershell.exe -executionpolicy remotesigned -File  %currentPath%\manageUsers.ps1
 goto manual
 
 :Eight

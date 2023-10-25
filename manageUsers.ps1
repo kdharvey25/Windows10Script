@@ -2,8 +2,10 @@
 $path2 = Get-Item .
 $path = Join-Path -path $path2 -ChildPath "users"
 # Define the file paths for the lists of approved admins and standard users
-$approvedAdminsFile = Join-Path -Path $path -ChildPath "admins"
-$approvedUsersFile = Join-Path -Path $path -ChildPath "users"
+$approvedAdminsFile = Join-Path -Path $path -ChildPath "admins.txt"
+$approvedUsersFile = Join-Path -Path $path -ChildPath "users.txt"
+Write-Host $approvedAdminsFile
+Write-Host $approvedUsersFile
 
 # Get the current list of users on the computer
 $existingUsers = Get-WmiObject Win32_UserAccount | Where-Object { $_.LocalAccount -eq $true } | Where-Object { $_.Name -ne $currentUsername -and $_.Name -ne 'Administrator' }
@@ -15,21 +17,22 @@ $approvedUsers = Get-Content -Path $approvedUsersFile
 # Remove users who are not in the approved lists
 foreach ($user in $existingUsers) {
     if ($user.Name -ne "Administrator" -and $user.Name -notin $approvedAdmins -and $user.Name -notin $approvedUsers) {
-        Remove-WmiObject -InputObject $user
+        net user $user.Name /delete
+        Write-Host $user.Name
     }
 }
 
 # Add users who should be standard users
 foreach ($user in $approvedUsers) {
     if ($user -notin $existingUsers.Name) {
-        net user $user /add
+        net user $user NoPtLoss1! /add
     }
 }
 
 # Add users who should be administrators
 foreach ($user in $approvedAdmins) {
     if ($user -notin $existingUsers.Name) {
-        net user $user /add
+        net user $user NoPtLoss! /add
     }
     Add-LocalGroupMember -Group "Administrators" -Member $user
 }
