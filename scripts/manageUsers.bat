@@ -14,28 +14,16 @@ start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%\r
 >>>>>>> 803a303 (asdf)
 echo Current Users have been output to %currentPath%\output\currentUsers.txt 
 
-pause 
+
 REM Disabling everyone - we will reenable them as they are checked
-
-echo %currentPath%
-start %currentPath%\output\currentUsers.txt
-pause
-
-echo before loop
-
-FOR /F "tokens=* delims=" %%z IN (%currentPath%\output\currentUsers.txt) DO (
-	echo %%z
+for /F "tokens=* delims=" %%e IN (%currentPath%\output\currentUsers.txt) DO (
 	net user %%z 1qaz2wsx3edc4rfvA!
 	net user %%z /active:no
 	net user %%z /PasswordChg:no
 	net user %%z /logonpasswordchg:no
 	net user %%z /passwordreq:yes
-	WMIC USERACCOUNT WHERE Name='%%z' SET PasswordExpires=FALSE
+	WMIC USERACCOUNT WHERE Name='%%f' SET PasswordExpires=FALSE
 )
-
-echo after loop
-
-pause
 
 REM Adds back the admins
 FOR /F "tokens=* delims=" %%e IN (%currentPath%\users\admins.txt) DO (
