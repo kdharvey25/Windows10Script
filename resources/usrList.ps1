@@ -5,8 +5,13 @@ if(-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity
 	Break
 }
 
-$path=Split-Path -Path $PWD -Parent
-$path2=Get-item $path/output
+#$path=Split-Path -Path $PWD -Parent
+#$path2=Get-item $path/Windows10Script/output
+
+$path=Get-item .
+Write-Host $path
+$path2=Join-Path -Path $path -ChildPath "/output"
+Write-Host $path2
 if (Test-Path $path2/currentUsers.txt) {
     Remove-Item $path2/currentUsers.txt -Force
 }
