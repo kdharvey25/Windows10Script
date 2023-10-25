@@ -2,19 +2,31 @@
 echo Managing users....
 
 REM Output the current users excluding the current user and administrator accounts
-start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1" /wait
+start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1"
 echo Current Users have been output to %currentPath%\output\currentUsers.txt 
 
-
+pause 
 REM Disabling everyone - we will reenable them as they are checked
-for /F "tokens=* delims=" %%z IN (%currentPath%\output\currentUsers.txt) DO (
+
+echo %currentPath%
+start %currentPath%\output\currentUsers.txt
+pause
+
+echo before loop
+
+FOR /F "tokens=* delims=" %%z IN (%currentPath%\output\currentUsers.txt) DO (
+	echo %%z
 	net user %%z 1qaz2wsx3edc4rfvA!
 	net user %%z /active:no
 	net user %%z /PasswordChg:no
 	net user %%z /logonpasswordchg:no
 	net user %%z /passwordreq:yes
-	WMIC USERACCOUNT WHERE Name='%%f' SET PasswordExpires=FALSE
+	WMIC USERACCOUNT WHERE Name='%%z' SET PasswordExpires=FALSE
 )
+
+echo after loop
+
+pause
 
 REM Adds back the admins
 FOR /F "tokens=* delims=" %%e IN (%currentPath%\users\admins.txt) DO (

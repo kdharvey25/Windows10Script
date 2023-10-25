@@ -12,7 +12,7 @@ if (Test-Path $path2/currentUsers.txt) {
 }
 $currentUsername=$env:UserName
 New-Item -Path $path2/currentUsers.txt -ItemType File
-$userList = Get-WmiObject -Class Win32_UserAccount | Where-Object { $_.Name -ne $currentUsername -and $_.Name -ne 'Administrator' } | select-object -expandproperty Name
+$userList = Get-WmiObject Win32_UserAccount | select-object -expandproperty Name
 foreach($l in $userList){
-	$l >> "$path2/currentUsers.txt"
+	$l>> "$path2/currentUsers.txt"
 }
