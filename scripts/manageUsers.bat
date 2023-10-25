@@ -2,7 +2,12 @@
 echo Managing users....
 
 REM Output the current users excluding the current user and administrator accounts
+<<<<<<< HEAD
 start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%\resources\usrList.ps1"
+=======
+Powershell.exe -executionpolicy remotesigned -File  %currentPath%\resources\ps.ps1
+REM start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%currentPath%resources\usrList.ps1"
+>>>>>>> 5455435 (adf)
 echo Current Users have been output to %currentPath%\output\currentUsers.txt 
 
 pause 
