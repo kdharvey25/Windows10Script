@@ -104,4 +104,6 @@ reg ADD HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v Show
 reg ADD HKLM\SYSTEM\CurrentControlSet\Control\CrashControl /v CrashDumpEnabled /t REG_DWORD /d 0 /f
 ::Disable autoruns
 reg ADD HKCU\SYSTEM\CurrentControlSet\Services\CDROM /v AutoRun /t REG_DWORD /d 1 /f
+:: Disable Remote Assistance 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v fAllowToGetHelp /t REG_DWORD /d 0 /f
 echo Managed registry keys
