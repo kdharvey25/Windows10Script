@@ -31,7 +31,7 @@ param (
     [bool]$Verbose = $false  # Specifies whether to display verbose output. Default value is $false.
 )
 
-$files = Get-ChildItem -LiteralPath "$Path" -Recurse -Force -Filter "*.$extension" -  # Retrieves all files with the specified extension in the given directory and its subdirectories.
+$files = Get-ChildItem -LiteralPath "$Path" -Recurse -Force -Filter "*.$extension"  # Retrieves all files with the specified extension in the given directory and its subdirectories.
 
 if ($Verbose) {
     $files | Select-Object @{Name='File Name';Expression={$_.Name}},
