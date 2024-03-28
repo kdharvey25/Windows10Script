@@ -25,7 +25,6 @@
     Check_User_Files.ps1
     Searches for files with the "txt" extension in the "C:\Users" directory and its subdirectories, and does not display verbose output.
 #>
-
 param (
     [string]$Extension = "txt",  # Specifies the file extension to search for. Default value is "txt".
     [string]$Path = "C:\Users",   # Specifies the directory to search in. Default value is "C:\Users".
@@ -44,3 +43,5 @@ if ($Verbose) {
         Write-Output $file.FullName    # Outputs the full path of the file.
     }
 }
+
+
