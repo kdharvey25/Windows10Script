@@ -28,20 +28,25 @@
 param (
     [string]$Extension = "txt",  # Specifies the file extension to search for. Default value is "txt".
     [string]$Path = "C:\Users",   # Specifies the directory to search in. Default value is "C:\Users".
-    [bool]$Verbose = $false  # Specifies whether to display verbose output. Default value is $false.
+    [bool]$Verbose = $false,  # Specifies whether to display verbose output. Default value is $false.
+    [string]$approvedFileList = "approvedFiles.txt"
 )
 
 $files = Get-ChildItem -LiteralPath "$Path" -Recurse -Force -Filter "*.$extension"  # Retrieves all files with the specified extension in the given directory and its subdirectories.
 
 if ($Verbose) {
-    $files | Select-Object @{Name='File Name';Expression={$_.Name}},
-                           @{Name='File Length';Expression={$_.Length}},
-                           @{Name='File Path';Expression={$_.DirectoryName}} |
-            Format-Table -AutoSize
+    $approvedFiles = Get-Content $approvedFileList
+    foreach ($file in $files) {
+        if ($file.Name -in $approvedFiles) {
+            Write-Host -NoNewline -ForegroundColor Green $file.Name
+        } else {
+            Write-Host -NoNewline -ForegroundColor Red $file.Name
+        }
+        Write-Host -NoNewline "`t" $file.Length "`t" $file.FullName
+        Write-Host
+    }
 } else {
     foreach ($file in $files) {
         Write-Output $file.FullName    # Outputs the full path of the file.
     }
 }
-
-
