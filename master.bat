@@ -90,7 +90,7 @@ call %currentPath%\scripts\lsp.bat
 goto manual
 
 :Seven
-Powershell.exe -executionpolicy remotesigned -File  %currentPath%\manageUsers.ps1
+Powershell.exe -executionpolicy remotesigned -File  %currentPath%\resources\manageUsers.ps1
 goto manual
 
 :Eight
