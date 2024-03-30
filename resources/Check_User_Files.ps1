@@ -26,17 +26,18 @@
     Searches for files with the "txt" extension in the "C:\Users" directory and its subdirectories, and does not display verbose output.
 #>
 param (
-    [string]$Extension = "txt",  # Specifies the file extension to search for. Default value is "txt".
-    [string]$Path = "C:\Users",   # Specifies the directory to search in. Default value is "C:\Users".
-    [bool]$Verbose = $false,  # Specifies whether to display verbose output. Default value is $false.
-    [string]$approvedFileList = "approvedFiles.txt"
+    [string]$path = "C:\Users",
+    [string]$extension = "txt",
+    [bool]$Verbose = $false,
+    [string]$approvedFileList = "approvedTextFiles.txt"
 )
 
-$files = Get-ChildItem -LiteralPath "$Path" -Recurse -Force -Filter "*.$extension"  # Retrieves all files with the specified extension in the given directory and its subdirectories.
+$approvedFiles = Get-Content -Path $approvedFileList
+$files = Get-ChildItem -File -Recurse -LiteralPath "$path" -Filter "*.$extension"
 
 if ($Verbose) {
-    $approvedFiles = Get-Content $approvedFileList
     foreach ($file in $files) {
+        Write-Host ($file.Name -in $approvedFiles)
         if ($file.Name -in $approvedFiles) {
             Write-Host -NoNewline -ForegroundColor Green $file.Name
         } else {
@@ -47,6 +48,10 @@ if ($Verbose) {
     }
 } else {
     foreach ($file in $files) {
-        Write-Output $file.FullName    # Outputs the full path of the file.
+        if ($file.Name -in $approvedFiles) {
+            Write-Host -ForegroundColor Green $file.FullName 
+        } else {
+            Write-Host -ForegroundColor Red $file.FullName
+        }
     }
 }
