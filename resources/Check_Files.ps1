@@ -1,32 +1,57 @@
-#Self elevate
-if(-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")){   
-	$arguments="& '"+$myinvocation.mycommand.definition+"'"
-	Start-Process powershell -Verb runAs -ArgumentList $arguments
-	Break
-}
-$path2=Split-Path -Path $PWD -Parent
-$path=Get-item $path2/output
+<#
+.SYNOPSIS
+    This script searches for files with a specified extension in a given directory and its subdirectories.
 
-Write-host "Searching for unauthorized files..."
-$extensions =@("aac","ac3","avi","aiff","bat","bmp","exe","flac","gif","jpeg","jpg","mov","m3u","m4p",
-"mp2","mp3","mp4","mpeg4","midi","msi","ogg","png","txt","sh","wav","wma","vqf")
-$tools =@("Cain","nmap","keylogger","Armitage","Wireshark","Metasploit","netcat")
-Write-host "Checking $extensions"
+.DESCRIPTION
+    The script takes three parameters: Extension, Path, and Verbose. 
+    - Extension: Specifies the file extension to search for. The default value is "txt".
+    - Path: Specifies the directory to search in. The default value is "C:\Users".
+    - Verbose: Specifies whether to display verbose output. The default value is $false.
 
-$checkFilesOutputDirectory=Join-Path $path "checkFilesOutput"
-if (-not (Test-Path "$checkFilesOutputDirectory")) {
-	New-Item -ItemType Directory -Path $checkFilesOutputDirectory
+.PARAMETER Extension
+    Specifies the file extension to search for. The default value is "txt".
+
+.PARAMETER Path
+    Specifies the directory to search in. The default value is "C:\Users".
+
+.PARAMETER Verbose
+    Specifies whether to display verbose output. The default value is $false.
+
+.EXAMPLE
+    Check_User_Files.ps1 -Extension "docx" -Path "C:\Users\JohnDoe" -Verbose $true
+    Searches for files with the "docx" extension in the "C:\Users\JohnDoe" directory and its subdirectories, and displays verbose output.
+
+.EXAMPLE
+    Check_User_Files.ps1
+    Searches for files with the "txt" extension in the "C:\Users" directory and its subdirectories, and does not display verbose output.
+#>
+param (
+    [string]$path = "C:\Users",
+    [string]$extension = "txt",
+    [bool]$Verbose = $false,
+    [string]$approvedFileList = "approvedTextFiles.txt"
+)
+
+$approvedFiles = Get-Content -Path $approvedFileList
+$files = Get-ChildItem -File -Recurse -LiteralPath "$path" -Filter "*.$extension"
+
+if ($Verbose) {
+    foreach ($file in $files) {
+        Write-Host ($file.Name -in $approvedFiles)
+        if ($file.Name -in $approvedFiles) {
+            Write-Host -NoNewline -ForegroundColor Green $file.Name
+        } else {
+            Write-Host -NoNewline -ForegroundColor Red $file.Name
+        }
+        Write-Host -NoNewline "`t" $file.Length "`t" $file.FullName
+        Write-Host
+    }
+} else {
+    foreach ($file in $files) {
+        if ($file.Name -in $approvedFiles) {
+            Write-Host -ForegroundColor Green $file.FullName 
+        } else {
+            Write-Host -ForegroundColor Red $file.FullName
+        }
+    }
 }
-foreach($ext in $extensions){
-	Write-host "Checking for .$ext files"
-	if(Test-path "$path\checkFilesOutput\$ext.txt"){Clear-content "$path\checkFilesOutput\$ext.txt"}
-	C:\Windows\System32\cmd.exe /C dir C:\*.$ext /s /b | Out-File "$path\checkFilesOutput\$ext.txt"
-}
-Write-host "Finished searching by extension"
-Write-host "Checking for $tools"
-foreach($tool in $tools){
-	Write-host "Checking for $tool"
-	if(Test-path $path\checkFilesOutput\$tool.txt){Clear-content "$path\checkFilesOutput\$tool.txt"}
-	C:\Windows\System32\cmd.exe /C dir C:\*$tool* /s /b | Out-File "$path\checkFilesOutput\$tool.txt"
-}
-Write-host "Finished searching for tools"
