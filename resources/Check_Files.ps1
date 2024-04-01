@@ -29,7 +29,7 @@ param (
     [string]$path = "C:\Users",
     [string]$extension = "txt",
     [bool]$Verbose = $false,
-    [string]$approvedFileList = "approvedTextFiles.txt"
+    [string]$approvedFileList = "approvedFiles.txt"
 )
 
 $approvedFiles = Get-Content -Path $approvedFileList
