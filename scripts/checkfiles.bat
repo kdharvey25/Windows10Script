@@ -1,1 +1,4 @@
-start C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "%path%resources\Check_Files.ps1" /wait
+set /p mode="Auto or Manual? (a/m)"
+
+
+Powershell.exe -executionpolicy remotesigned -File  %currentPath%\resources\Check_Files.ps1
